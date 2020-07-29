@@ -20,15 +20,16 @@ public class Surface {
 	public Surface() {
 		b.setBorderColor(Color.CYAN);
 		b.setCornerRadius(10);
-
 		b.setText("Create Server");
 		b.setTextColor(Color.CYAN);
 		b.setTextAlignment(Textalign.mittig);
 		b.setTextFontSize(34);
 		
+		txtArea.setBackgroundColor(Color.BLACK);
+		txtArea.setTextColor(Color.CYAN);	
+		
 		b2.setBorderColor(Color.CYAN);
 		b2.setCornerRadius(10);
-
 		b2.setText("Connect");
 		b2.setTextColor(Color.CYAN);
 		b2.setTextAlignment(Textalign.mittig);
@@ -36,15 +37,10 @@ public class Surface {
 		
 		msgButton.setBorderColor(Color.CYAN);
 		msgButton.setCornerRadius(10);
-
 		msgButton.setText("send msg");
 		msgButton.setTextColor(Color.CYAN);
 		msgButton.setTextAlignment(Textalign.mittig);
 		msgButton.setTextFontSize(34);
-
-		
-		txtArea.setBackgroundColor(Color.BLACK);
-		txtArea.setTextColor(Color.CYAN);
 	}
 
 	public void checkButtonPress(int x, int y) {
