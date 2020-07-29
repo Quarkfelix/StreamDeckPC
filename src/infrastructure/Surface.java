@@ -12,7 +12,8 @@ import server.Server;
 public class Surface {
 	Button b = new Button(100, 100, 200, 150);
 	Button b2 = new Button(450, 100, 200, 150);
-	public static TextArea txtArea = new TextArea(100, 300, 600, 200);
+	Button msgButton = new Button(450, 300, 150, 100);
+	public static TextArea txtArea = new TextArea(0, 300, 400, 200);
 	private Server s;
 	private Client c;
 
@@ -32,6 +33,14 @@ public class Surface {
 		b2.setTextColor(Color.CYAN);
 		b2.setTextAlignment(Textalign.mittig);
 		b2.setTextFontSize(34);
+		
+		msgButton.setBorderColor(Color.CYAN);
+		msgButton.setCornerRadius(10);
+
+		msgButton.setText("send msg");
+		msgButton.setTextColor(Color.CYAN);
+		msgButton.setTextAlignment(Textalign.mittig);
+		msgButton.setTextFontSize(34);
 
 		
 		txtArea.setBackgroundColor(Color.BLACK);
@@ -45,6 +54,9 @@ public class Surface {
 		if (b2.contains(x, y)) {
 			c = new Client();
 		}
+		if (msgButton.contains(x, y)) {
+			c.sendMSG();
+		}
 	}
 	
 	public static void outprint(String txt) {
@@ -56,5 +68,6 @@ public class Surface {
 		b.paint(g);
 		b2.paint(g);
 		txtArea.paint(g);
+		msgButton.paint(g);
 	}
 }

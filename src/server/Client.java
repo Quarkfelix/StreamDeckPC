@@ -10,7 +10,9 @@ import java.net.UnknownHostException;
 public class Client implements Runnable {
 	Thread t;
 	Socket client;
-
+	OutputStream out; 
+	PrintWriter writer;
+	
 //Constructor-------------------------------------------------------------------
 	public Client() {
 		t = new Thread(this);
@@ -21,11 +23,8 @@ public class Client implements Runnable {
 	private void initialize() {
 		try {
 			client = new Socket("192.168.178.80", 8143);
-			OutputStream out = client.getOutputStream();
-			PrintWriter writer = new PrintWriter(out);
-			writer.write("nachicht angekommen");
-			writer.flush();
-			writer.close();
+			out = client.getOutputStream();
+			writer = new PrintWriter(out);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,11 +33,15 @@ public class Client implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void sendMSG() {
+		writer.write("nachicht\n");
+		writer.flush();
+	}
 
 	@Override
 	public void run() {
 		initialize();
-
 	}
 
 }

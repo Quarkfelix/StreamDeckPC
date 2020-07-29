@@ -15,7 +15,10 @@ public class Server implements Runnable {
 	Thread t;
 	private ServerSocket server;
 	private Socket client;
-
+	private boolean audioswitch = true;
+	private InputStream in;
+	private BufferedReader reader;
+	
 //Constructor-------------------------------------------------------------------
 	public Server() {
 		t = new Thread(this);
@@ -38,7 +41,8 @@ public class Server implements Runnable {
 			client = server.accept();
 			Surface.outprint("Client Accepted");
 			System.out.println("Client accepted");
-			waitForActions();
+			in = client.getInputStream();
+			reader = new BufferedReader(new InputStreamReader(in));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,34 +51,47 @@ public class Server implements Runnable {
 
 	private void waitForActions() {
 		try {
-			InputStream in;
-			BufferedReader reader;
-			in = client.getInputStream();
-			reader = new BufferedReader(new InputStreamReader(in));
-			while (true) {
-				String key = reader.readLine();
-				if (key != null) {
-					switch (key) {
-					case "Soundpad":
-						Process p = Runtime.getRuntime().exec("notepad");
-						break;
-
-					default:
-						break;
+			String key;
+			if ((key = reader.readLine()) != null) {
+				System.out.println("key: " + key);
+				switch (key) {
+				case "Soundpad":
+					Process p = Runtime.getRuntime().exec("E:\\Steam Games\\steamapps\\common\\Soundpad\\Soundpad.exe");
+					System.out.println("2");
+					break;
+				case "Destiny2":
+					Process p2 = Runtime.getRuntime().exec("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Destiny 2\\destiny2.exe");
+					System.out.println("2");
+					break;
+				case "switch audiooutput":
+					if (audioswitch) {
+						Process p3 = Runtime.getRuntime().exec("nircmd.exe setdefaultsounddevice Astro");
+						audioswitch = false;
+						System.out.println("1");
+					} else {
+						Process p4 = Runtime.getRuntime().exec("nircmd.exe setdefaultsounddevice ultrawide");
+						audioswitch = true;
+						System.out.println("2");
 					}
+				case "nachicht":  
+					System.out.println("nachicht");
+					break;
+				default:
+					break;
 				}
 			}
-
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
 	public void run() {
 		initializeServer();
 		waitForClient();
+		while(true) {
+			waitForActions();
+		}
 	}
 }
