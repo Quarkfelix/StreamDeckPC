@@ -82,17 +82,17 @@ public class Server implements Runnable {
 
 	private void waitForClient() {
 		try {
-			System.out.println("Waiting for client");
+			//System.out.println("Waiting for client");
 			client = server.accept();
 			disconnected = false;
-			Surface.outprint("Client Accepted");
-			System.out.println("Client accepted");
+			//Surface.outprint("Client Accepted");
+			//System.out.println("Client accepted");
 			out = client.getOutputStream();
             writer = new PrintWriter(out);
 			in = client.getInputStream();
 			reader = new BufferedReader(new InputStreamReader(in));
 		} catch (IOException e) {
-			System.out.println("verbindung verloren");
+			//System.out.println("verbindung verloren");
 			e.printStackTrace();
 		}
 	}
@@ -101,8 +101,8 @@ public class Server implements Runnable {
 		try {
 			String key;
 			if ((key = reader.readLine()) != null) {
-				System.out.println("in normal:");
-				System.out.println("key: " + key);
+				//System.out.println("in normal:");
+				//System.out.println("key: " + key);
 				switch (key) {
 				case "disconnect": 
 					System.out.println("switch");
@@ -145,11 +145,11 @@ public class Server implements Runnable {
 					if (audioswitch) {
 						Process p8 = Runtime.getRuntime().exec("nircmd.exe setdefaultsounddevice Astro");
 						audioswitch = false;
-						System.out.println("1");
+						//System.out.println("1");
 					} else {
 						Process p8 = Runtime.getRuntime().exec("nircmd.exe setdefaultsounddevice ultrawide");
 						audioswitch = true;
-						System.out.println("2");
+						//System.out.println("2");
 					}
 					break;
 				
@@ -166,8 +166,8 @@ public class Server implements Runnable {
 		try {
 			String key;
 			if ((key = reader.readLine()) != null) {
-				System.out.println("in Soundpad:");
-				System.out.println("key: " + key);
+				//System.out.println("in Soundpad:");
+				//System.out.println("key: " + key);
 				switch (key) {
 				case "back":
 					
@@ -216,34 +216,28 @@ public class Server implements Runnable {
 		try {
 			String key;
 			if ((key = reader.readLine()) != null) {
-				System.out.println("in games:");
-				System.out.println("key: " + key);
+				//System.out.println("in games:");
+				//System.out.println("key: " + key);
 				switch (key) {
 				case "back":
 					games = false;
 					break;
 				case "Destiny2":
-					System.out.println("csgo");
 					Process p = Runtime.getRuntime().exec("cmd /c start steam://rungameid/1085660");
 					break;
 				case "Hyperscape":
-					System.out.println("csgo");
 					Process p2 = Runtime.getRuntime().exec("cmd /c start uplay://launch/11957/0");
 					break;
 				case "MortalKombat":
-					System.out.println("csgo");
 					Process p3 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/307780");
 					break;
 				case "PummelParty":
-					System.out.println("csgo");
 					Process p4 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/880940");
 					break;
 				case "MonsterHunterWorld":
-					System.out.println("csgo");
 					Process p5 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/582010");
 					break;
 				case "CSGO":
-					System.out.println("csgo");
 					Process p6 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/730");
 					break;
 
