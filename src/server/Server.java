@@ -11,8 +11,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Formatter;
 
@@ -26,6 +29,8 @@ public class Server implements Runnable {
 	private ServerSocket server;
 	private Socket client;
 	private boolean audioswitch = true;
+	private OutputStream out;
+	private PrintWriter writer;
 	private InputStream in;
 	private BufferedReader reader;
 	private boolean disconnected = true;
@@ -42,27 +47,36 @@ public class Server implements Runnable {
 	public void run() {
 		initializeServer();
 		waitForClient();
-		while(true) {
-			while(disconnected) {
-				waitForClient();
-			}
-			if(soundpad) {
+		while(true) {			
+			clientConnected();
+			if (soundpad) {
 				waitForSoundActions();
-			} else if(games) {
+			} else if (games) {
 				waitForGamesActions();
-			} else{
+			} else {
 				waitForActions();
-			}	
-		}		
+			}
+		}
 	}
 
 //methods-----------------------------------------------------------------------
 	private void initializeServer() {
 		try {
 			server = new ServerSocket(8143);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	private boolean clientConnected() {
+		if(client == null) {
+			return false;
+		} else {
+			writer.write("test ob connection besteht");
+			writer.flush();
+			return true;
 		}
 	}
 
@@ -73,6 +87,8 @@ public class Server implements Runnable {
 			disconnected = false;
 			Surface.outprint("Client Accepted");
 			System.out.println("Client accepted");
+			out = client.getOutputStream();
+            writer = new PrintWriter(out);
 			in = client.getInputStream();
 			reader = new BufferedReader(new InputStreamReader(in));
 		} catch (IOException e) {
@@ -85,6 +101,7 @@ public class Server implements Runnable {
 		try {
 			String key;
 			if ((key = reader.readLine()) != null) {
+				System.out.println("in normal:");
 				System.out.println("key: " + key);
 				switch (key) {
 				case "disconnect": 
@@ -141,8 +158,7 @@ public class Server implements Runnable {
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			waitForClient();
 		}
 	}
 	
@@ -150,8 +166,11 @@ public class Server implements Runnable {
 		try {
 			String key;
 			if ((key = reader.readLine()) != null) {
+				System.out.println("in Soundpad:");
+				System.out.println("key: " + key);
 				switch (key) {
 				case "back":
+					
 					soundpad = false;
 					break;
 				case "sound1":
@@ -184,14 +203,12 @@ public class Server implements Runnable {
 				case "sound10":
 					press(KeyEvent.VK_CONTROL, KeyEvent.VK_0);
 					break;
-					
 				default:
 					break;
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			waitForClient();
 		} 
 	}
 	
@@ -199,6 +216,8 @@ public class Server implements Runnable {
 		try {
 			String key;
 			if ((key = reader.readLine()) != null) {
+				System.out.println("in games:");
+				System.out.println("key: " + key);
 				switch (key) {
 				case "back":
 					games = false;
@@ -233,8 +252,7 @@ public class Server implements Runnable {
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			waitForClient();
 		} 
 	}
 	
