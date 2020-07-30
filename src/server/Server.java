@@ -30,6 +30,7 @@ public class Server implements Runnable {
 	private BufferedReader reader;
 	private boolean disconnected = true;
 	private boolean soundpad = false;
+	private boolean games = false;
 	
 //Constructor-------------------------------------------------------------------
 	public Server() {
@@ -47,7 +48,9 @@ public class Server implements Runnable {
 			}
 			if(soundpad) {
 				waitForSoundActions();
-			} else {
+			} else if(games) {
+				waitForGamesActions();
+			} else{
 				waitForActions();
 			}	
 		}		
@@ -88,8 +91,8 @@ public class Server implements Runnable {
 					System.out.println("switch");
 					disconnected = true;
 					break;
-				case "Destiny2":
-					Process p = Runtime.getRuntime().exec("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Destiny 2\\destiny2.exe");
+				case "Games":
+					games = true;
 					break;
 				case "Chrome":
 					Process p2 = Runtime.getRuntime().exec("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe");
@@ -145,7 +148,6 @@ public class Server implements Runnable {
 	
 	private void waitForSoundActions() {
 		try {
-			System.out.println("test");
 			String key;
 			if ((key = reader.readLine()) != null) {
 				switch (key) {
@@ -183,6 +185,49 @@ public class Server implements Runnable {
 					press(KeyEvent.VK_CONTROL, KeyEvent.VK_0);
 					break;
 					
+				default:
+					break;
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	}
+	
+	private void waitForGamesActions() {
+		try {
+			String key;
+			if ((key = reader.readLine()) != null) {
+				switch (key) {
+				case "back":
+					games = false;
+					break;
+				case "Destiny2":
+					System.out.println("csgo");
+					Process p = Runtime.getRuntime().exec("cmd /c start steam://rungameid/1085660");
+					break;
+				case "Hyperscape":
+					System.out.println("csgo");
+					Process p2 = Runtime.getRuntime().exec("cmd /c start uplay://launch/11957/0");
+					break;
+				case "MortalKombat":
+					System.out.println("csgo");
+					Process p3 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/307780");
+					break;
+				case "PummelParty":
+					System.out.println("csgo");
+					Process p4 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/880940");
+					break;
+				case "MonsterHunterWorld":
+					System.out.println("csgo");
+					Process p5 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/582010");
+					break;
+				case "CSGO":
+					System.out.println("csgo");
+					Process p6 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/730");
+					break;
+
 				default:
 					break;
 				}
