@@ -178,6 +178,9 @@ public class Server implements Runnable {
 			case "back":
 				soundpad = false;
 				break;
+			case "stopsound":
+				press(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_P);
+				break;
 			case "sound1":
 				press(KeyEvent.VK_CONTROL, KeyEvent.VK_1);
 				break;
@@ -188,26 +191,57 @@ public class Server implements Runnable {
 				press(KeyEvent.VK_CONTROL, KeyEvent.VK_3);
 				break;
 			case "sound4":
-				press(KeyEvent.VK_CONTROL, KeyEvent.VK_4);
-				break;
-			case "sound5":
 				press(KeyEvent.VK_CONTROL, KeyEvent.VK_5);
 				break;
-			case "sound6":
+			case "sound5":
 				press(KeyEvent.VK_CONTROL, KeyEvent.VK_6);
 				break;
-			case "sound7":
+			case "sound6":
 				press(KeyEvent.VK_CONTROL, KeyEvent.VK_7);
 				break;
-			case "sound8":
+			case "sound7":
 				press(KeyEvent.VK_CONTROL, KeyEvent.VK_8);
 				break;
-			case "sound9":
+			case "sound8":
 				press(KeyEvent.VK_CONTROL, KeyEvent.VK_9);
 				break;
-			case "sound10":
+			case "sound9":
 				press(KeyEvent.VK_CONTROL, KeyEvent.VK_0);
 				break;
+			case "sound10":
+				press(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_2);
+				break;
+			case "sound11":
+				press(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_3);
+				break;
+			case "sound12":
+				press(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_4);
+				break;
+			case "sound13":
+				press(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_7);
+				break;
+			case "sound14":
+				press(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_9);
+				break;
+			case "sound15":
+				press(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_0);
+				break;
+			case "sound16":
+				press(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_1);
+				break;
+			case "sound17":
+				press(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_8);
+				break;
+			case "sound18":
+				press(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_6);
+				break;
+			case "sound19":
+				press(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_5);
+				break;
+			case "sound20":
+				press(KeyEvent.VK_CONTROL, KeyEvent.VK_4);
+				break;
+			
 			default:
 				break;
 			}
@@ -247,7 +281,30 @@ public class Server implements Runnable {
 			case "CSGO":
 				Process p6 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/730");
 				break;
-
+			case "dishonored2":
+				Process p7 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/403640");
+				break;
+			case "opusmagnum":
+				Process p8 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/558990");
+				break;
+			case "satisfactory":
+				Process p9 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/526870");
+				break;
+			case "titans":
+				Process p10 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/386070");
+				break;
+			case "squadrons":
+				Process p11 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/1222730");
+				break;
+			case "warframe":
+				Process p12 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/230410");
+				break;
+			case "raft":
+				Process p13 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/648800");
+				break;
+			case "forts":
+				Process p14 = Runtime.getRuntime().exec("cmd /c start steam://rungameid/410900");
+				break;
 			default:
 				break;
 			}
@@ -306,6 +363,19 @@ public class Server implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+	}
+	private void press(int key0, int key1, int key2) {
+		try {
+			Robot r = new Robot();
+			r.keyPress(key0);
+			r.keyPress(key1);
+			r.keyPress(key2);
+			r.keyRelease(key2);
+			r.keyRelease(key1);
+			r.keyRelease(key0);
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
